@@ -42,7 +42,8 @@ func makeUpdateEndpoint(s service.ModelService) endpoint.Endpoint {
 
 func makeListEndpoint(s service.ModelService) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
-		return s.List()
+		req := request.(*types.ListRequest)
+		return s.List(req)
 	}
 }
 
