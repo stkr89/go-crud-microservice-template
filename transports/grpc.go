@@ -21,8 +21,8 @@ func NewGRPCServer(endpoints endpoints.Endpoints) pb.MathServiceServer {
 	return &gRPCServer{
 		add: gt.NewServer(
 			endpoint.Chain(
-				middleware.ValidateAddInput(),
-				middleware.ConformAddInput(),
+				middleware.ValidateCreateInput(),
+				middleware.ConformCreateInput(),
 			)(endpoints.Add),
 			decodeAddGRPCRequest,
 			encodeAddGRPCResponse,

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"github.com/go-kit/kit/endpoint"
 	httptransport "github.com/go-kit/kit/transport/http"
+	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 	"github.com/stkr89/modelsvc/common"
 	"github.com/stkr89/modelsvc/endpoints"
@@ -19,14 +20,43 @@ type errorWrapper struct {
 
 func NewHTTPHandler(endpoints endpoints.Endpoints) http.Handler {
 	m := mux.NewRouter()
-	m.Handle("/api/add/v1", httptransport.NewServer(
+	m.Handle("/api/v1/model", httptransport.NewServer(
 		endpoint.Chain(
-			middleware.ValidateAddInput(),
-			middleware.ConformAddInput(),
-		)(endpoints.Add),
-		decodeHTTPAddRequest,
+			middleware.ValidateCreateInput(),
+			middleware.ConformCreateInput(),
+		)(endpoints.Create),
+		decodeHTTPCreateRequest,
 		encodeHTTPGenericResponse,
 	)).Methods(http.MethodPost)
+	m.Handle("/api/v1/model/:id", httptransport.NewServer(
+		endpoint.Chain(
+			middleware.ValidateGetInput(),
+			middleware.ConformGetInput(),
+		)(endpoints.Get),
+		decodeHTTPGetRequest,
+		encodeHTTPGenericResponse,
+	)).Methods(http.MethodGet)
+	m.Handle("/api/v1/model", httptransport.NewServer(
+		endpoints.Get,
+		nil,
+		encodeHTTPGenericResponse,
+	)).Methods(http.MethodGet)
+	m.Handle("/api/v1/model", httptransport.NewServer(
+		endpoint.Chain(
+			middleware.ValidateUpdateInput(),
+			middleware.ConformUpdateInput(),
+		)(endpoints.Update),
+		decodeHTTPUpdateRequest,
+		encodeHTTPGenericResponse,
+	)).Methods(http.MethodPut)
+	m.Handle("/api/v1/model/:id", httptransport.NewServer(
+		endpoint.Chain(
+			middleware.ValidateDeleteInput(),
+			middleware.ConformDeleteInput(),
+		)(endpoints.Delete),
+		decodeHTTPDeleteRequest,
+		encodeHTTPGenericResponse,
+	)).Methods(http.MethodDelete)
 
 	return m
 }
@@ -53,8 +83,38 @@ func encodeHTTPGenericResponse(ctx context.Context, w http.ResponseWriter, respo
 	return json.NewEncoder(w).Encode(response)
 }
 
-func decodeHTTPAddRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	var req types.MathRequest
+func decodeHTTPDeleteRequest(_ context.Context, r *http.Request) (interface{}, error) {
+	returnID := r.URL.Query().Get("id")
+	id, err := uuid.Parse(returnID)
+	if err != nil {
+		return nil, err
+	}
+
+	return &types.DeleteRequest{
+		ID: id,
+	}, err
+}
+
+func decodeHTTPUpdateRequest(_ context.Context, r *http.Request) (interface{}, error) {
+	var req types.UpdateRequest
+	err := json.NewDecoder(r.Body).Decode(&req)
+	return &req, err
+}
+
+func decodeHTTPGetRequest(_ context.Context, r *http.Request) (interface{}, error) {
+	returnID := r.URL.Query().Get("id")
+	id, err := uuid.Parse(returnID)
+	if err != nil {
+		return nil, err
+	}
+
+	return &types.GetRequest{
+		ID: id,
+	}, err
+}
+
+func decodeHTTPCreateRequest(_ context.Context, r *http.Request) (interface{}, error) {
+	var req types.CreateRequest
 	err := json.NewDecoder(r.Body).Decode(&req)
 	return &req, err
 }
