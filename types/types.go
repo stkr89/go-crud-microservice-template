@@ -17,6 +17,9 @@ type GetResponse struct {
 	ID uuid.UUID `json:"id" validate:"required"`
 }
 
+type ListRequest struct {
+}
+
 type ListResponse struct {
 }
 

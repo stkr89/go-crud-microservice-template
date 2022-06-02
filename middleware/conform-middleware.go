@@ -7,6 +7,19 @@ import (
 	"github.com/stkr89/modelsvc/types"
 )
 
+func ConformListInput() endpoint.Middleware {
+	return func(next endpoint.Endpoint) endpoint.Endpoint {
+		return func(ctx context.Context, request interface{}) (interface{}, error) {
+			req := request.(*types.ListRequest)
+			err := conform.Strings(req)
+			if err != nil {
+				return nil, err
+			}
+			return next(ctx, req)
+		}
+	}
+}
+
 func ConformDeleteInput() endpoint.Middleware {
 	return func(next endpoint.Endpoint) endpoint.Endpoint {
 		return func(ctx context.Context, request interface{}) (interface{}, error) {

@@ -37,8 +37,11 @@ func NewHTTPHandler(endpoints endpoints.Endpoints) http.Handler {
 		encodeHTTPGenericResponse,
 	)).Methods(http.MethodGet)
 	m.Handle("/api/v1/model", httptransport.NewServer(
-		endpoints.Get,
-		nil,
+		endpoint.Chain(
+			middleware.ValidateListInput(),
+			middleware.ConformListInput(),
+		)(endpoints.Update),
+		decodeHTTPListRequest,
 		encodeHTTPGenericResponse,
 	)).Methods(http.MethodGet)
 	m.Handle("/api/v1/model", httptransport.NewServer(
@@ -93,6 +96,12 @@ func decodeHTTPDeleteRequest(_ context.Context, r *http.Request) (interface{}, e
 	return &types.DeleteRequest{
 		ID: id,
 	}, err
+}
+
+func decodeHTTPListRequest(_ context.Context, r *http.Request) (interface{}, error) {
+	var req types.ListRequest
+	err := json.NewDecoder(r.Body).Decode(&req)
+	return &req, err
 }
 
 func decodeHTTPUpdateRequest(_ context.Context, r *http.Request) (interface{}, error) {

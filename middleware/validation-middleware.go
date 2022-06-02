@@ -9,6 +9,21 @@ import (
 	"strings"
 )
 
+func ValidateListInput() endpoint.Middleware {
+	return func(next endpoint.Endpoint) endpoint.Endpoint {
+		return func(ctx context.Context, request interface{}) (interface{}, error) {
+			req := request.(*types.ListRequest)
+			err := validator.New().Struct(req)
+			err = validateUtil(err)
+			if err != nil {
+				return nil, err
+			}
+
+			return next(ctx, req)
+		}
+	}
+}
+
 func ValidateDeleteInput() endpoint.Middleware {
 	return func(next endpoint.Endpoint) endpoint.Endpoint {
 		return func(ctx context.Context, request interface{}) (interface{}, error) {

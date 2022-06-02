@@ -12,7 +12,7 @@ import (
 type ModelService interface {
 	Create(request *types.CreateRequest) (*types.CreateResponse, error)
 	Get(request *types.GetRequest) (*types.GetResponse, error)
-	List() (*types.ListResponse, error)
+	List(request *types.ListRequest) (*types.ListResponse, error)
 	Update(request *types.UpdateRequest) (*types.UpdateResponse, error)
 	Delete(request *types.DeleteRequest) error
 }
@@ -56,7 +56,7 @@ func (m ModelServiceImpl) Update(request *types.UpdateRequest) (*types.UpdateRes
 	return &types.UpdateResponse{}, nil
 }
 
-func (m ModelServiceImpl) List() (*types.ListResponse, error) {
+func (m ModelServiceImpl) List(request *types.ListRequest) (*types.ListResponse, error) {
 	_, err := m.modelDao.List()
 	if err != nil {
 		m.logger.Log("error", err)
