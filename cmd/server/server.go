@@ -57,7 +57,8 @@ func StartServer(logger log.Logger, e endpoints.Endpoints, startGRPC, startHTTP 
 }
 
 func startHTTPServer(logger log.Logger, e endpoints.Endpoints) {
-	listener, err := getListener(os.Getenv("PORT"))
+	httpPort := os.Getenv("HTTP_PORT")
+	listener, err := getListener(httpPort)
 	if err != nil {
 		logger.Log("transport", "HTTP", "during", "Listen", "err", err)
 		os.Exit(1)
@@ -66,13 +67,14 @@ func startHTTPServer(logger log.Logger, e endpoints.Endpoints) {
 	httpHandler := transport.NewHTTPHandler(e)
 
 	go func() {
-		level.Info(logger).Log("msg", "Starting HTTP server 🚀")
+		level.Info(logger).Log("msg", fmt.Sprintf("Starting HTTP server 🚀 at port %s", httpPort))
 		http.Serve(listener, httpHandler)
 	}()
 }
 
 func startGRPCServer(logger log.Logger, endpoints endpoints.Endpoints) {
-	listener, err := getListener(os.Getenv("GRPC_PORT"))
+	grpcPort := os.Getenv("GRPC_PORT")
+	listener, err := getListener(grpcPort)
 	if err != nil {
 		logger.Log("transport", "GRPC", "during", "Listen", "err", err)
 		os.Exit(1)
@@ -83,7 +85,7 @@ func startGRPCServer(logger log.Logger, endpoints endpoints.Endpoints) {
 	pb.RegisterMathServiceServer(baseServer, grpcServer)
 
 	go func() {
-		level.Info(logger).Log("msg", "Starting GRPC server 🚀")
+		level.Info(logger).Log("msg", fmt.Sprintf("Starting gRPC server 🚀 at port %s", grpcPort))
 		baseServer.Serve(listener)
 	}()
 }
