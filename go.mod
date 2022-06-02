@@ -7,6 +7,7 @@ require (
 	github.com/go-kit/log v0.2.0
 	github.com/go-playground/validator/v10 v10.9.0
 	github.com/golang/protobuf v1.5.2
+	github.com/google/uuid v1.1.2
 	github.com/gorilla/mux v1.6.2
 	github.com/joho/godotenv v1.4.0
 	github.com/leebenson/conform v1.2.2

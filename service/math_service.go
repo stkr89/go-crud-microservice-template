@@ -15,17 +15,17 @@ type MathService interface {
 
 type MathServiceImpl struct {
 	logger  log.Logger
-	mathDao dao.MathDao
+	mathDao dao.ModelDao
 }
 
 func NewMathServiceImpl() *MathServiceImpl {
 	return &MathServiceImpl{
 		logger:  common.NewLogger(),
-		mathDao: dao.NewMathDaoImpl(),
+		mathDao: dao.NewModelDaoImpl(),
 	}
 }
 
-func NewMathServiceImplArgs(logger log.Logger, mathDao dao.MathDao) MathService {
+func NewMathServiceImplArgs(logger log.Logger, mathDao dao.ModelDao) MathService {
 	return &MathServiceImpl{
 		logger:  logger,
 		mathDao: mathDao,
