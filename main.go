@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/stkr89/mathsvc/cmd/server"
+	"github.com/stkr89/modelsvc/cmd/server"
 )
 
 func main() {

@@ -1,10 +1,31 @@
 package types
 
-type MathRequest struct {
-	NumA float32 `json:"numA" validate:"required" conform:"trim"`
-	NumB float32 `json:"numB" validate:"required" conform:"trim"`
+import "github.com/google/uuid"
+
+type CreateRequest struct {
 }
 
-type MathResponse struct {
-	Result float32 `json:"result"`
+type CreateResponse struct {
+	ID uuid.UUID `json:"id"`
+}
+
+type GetRequest struct {
+	ID uuid.UUID `json:"id" validate:"required"`
+}
+
+type GetResponse struct {
+	ID uuid.UUID `json:"id" validate:"required"`
+}
+
+type ListResponse struct {
+}
+
+type UpdateRequest struct {
+}
+
+type UpdateResponse struct {
+}
+
+type DeleteRequest struct {
+	ID uuid.UUID `json:"id" validate:"required"`
 }

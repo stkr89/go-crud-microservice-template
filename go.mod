@@ -1,4 +1,4 @@
-module github.com/stkr89/mathsvc
+module github.com/stkr89/modelsvc
 
 go 1.18
 

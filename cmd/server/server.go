@@ -3,12 +3,12 @@ package server
 import (
 	"fmt"
 	"github.com/go-kit/log"
-	"github.com/stkr89/mathsvc/common"
-	"github.com/stkr89/mathsvc/config"
-	"github.com/stkr89/mathsvc/endpoints"
-	"github.com/stkr89/mathsvc/pb"
-	"github.com/stkr89/mathsvc/service"
-	transport "github.com/stkr89/mathsvc/transports"
+	"github.com/stkr89/modelsvc/common"
+	"github.com/stkr89/modelsvc/config"
+	"github.com/stkr89/modelsvc/endpoints"
+	"github.com/stkr89/modelsvc/pb"
+	"github.com/stkr89/modelsvc/service"
+	transport "github.com/stkr89/modelsvc/transports"
 	"net"
 	"net/http"
 	"os"
@@ -35,7 +35,7 @@ func InitServer() {
 		errs <- fmt.Errorf("%s", <-c)
 	}()
 
-	e := endpoints.MakeEndpoints(service.NewMathServiceImpl())
+	e := endpoints.MakeEndpoints(service.NewModelServiceImpl())
 	StartServer(logger, e, true, true)
 
 	level.Error(logger).Log("exit", <-errs)

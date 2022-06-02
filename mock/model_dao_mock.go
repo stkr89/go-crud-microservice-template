@@ -8,7 +8,7 @@ import (
 	sync "sync"
 
 	github_com_google_uuid "github.com/google/uuid"
-	github_com_stkr89_mathsvc_models "github.com/stkr89/mathsvc/models"
+	github_com_stkr89_mathsvc_models "github.com/stkr89/modelsvc/models"
 )
 
 // MockModelDao is a mock of ModelDao interface

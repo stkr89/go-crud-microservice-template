@@ -3,9 +3,9 @@ package dao
 import (
 	"github.com/go-kit/log"
 	"github.com/google/uuid"
-	"github.com/stkr89/mathsvc/common"
-	"github.com/stkr89/mathsvc/config"
-	"github.com/stkr89/mathsvc/models"
+	"github.com/stkr89/modelsvc/common"
+	"github.com/stkr89/modelsvc/config"
+	"github.com/stkr89/modelsvc/models"
 	"gorm.io/gorm"
 )
 

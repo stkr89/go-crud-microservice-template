@@ -2,11 +2,11 @@ package test
 
 import (
 	"github.com/joho/godotenv"
-	"github.com/stkr89/mathsvc/cmd/server"
-	"github.com/stkr89/mathsvc/common"
-	"github.com/stkr89/mathsvc/endpoints"
-	"github.com/stkr89/mathsvc/service"
-	transport "github.com/stkr89/mathsvc/transports"
+	"github.com/stkr89/modelsvc/cmd/server"
+	"github.com/stkr89/modelsvc/common"
+	"github.com/stkr89/modelsvc/endpoints"
+	"github.com/stkr89/modelsvc/service"
+	transport "github.com/stkr89/modelsvc/transports"
 	"github.com/stretchr/testify/suite"
 	"net/http"
 	"testing"
@@ -21,7 +21,7 @@ func (suite *HTTPIntegrationTestSuite) SetupSuite() {
 	err := godotenv.Load("../.env")
 	suite.NoError(err)
 
-	e := endpoints.MakeEndpoints(service.NewMathServiceImpl())
+	e := endpoints.MakeEndpoints(service.NewModelServiceImpl())
 	server.StartServer(common.NewLogger(), e, false, true)
 
 	suite.handler = transport.NewHTTPHandler(e)
