@@ -39,9 +39,11 @@ func NewModelDaoImplArgs(db gorm.DB) ModelDaoImpl {
 func (m ModelDaoImpl) Delete(id uuid.UUID) error {
 	result := m.db.Delete(&models.Model{ID: id})
 	if result.Error != nil {
-		m.logger.Log("message", "unable to delete", "error", result.Error)
+		m.logger.Log("message", "failed to delete", "error", result.Error)
 		return common.SomethingWentWrong
 	}
+
+	m.logger.Log("message", "deleted successfully", "return", id)
 
 	return nil
 }
@@ -49,9 +51,11 @@ func (m ModelDaoImpl) Delete(id uuid.UUID) error {
 func (m ModelDaoImpl) Update(obj *models.Model) (*models.Model, error) {
 	result := m.db.Save(obj)
 	if result.Error != nil {
-		m.logger.Log("message", "unable to update", "error", result.Error)
+		m.logger.Log("message", "failed to update", "error", result.Error)
 		return nil, common.SomethingWentWrong
 	}
+
+	m.logger.Log("message", "updated successfully", "return", obj.ID)
 
 	return obj, nil
 }
@@ -60,7 +64,7 @@ func (m ModelDaoImpl) List() ([]*models.Model, error) {
 	var objs []*models.Model
 	result := m.db.Find(&objs)
 	if result.Error != nil {
-		m.logger.Log("message", "unable to list", "error", result.Error)
+		m.logger.Log("message", "failed to list", "error", result.Error)
 		return nil, common.SomethingWentWrong
 	}
 
@@ -72,7 +76,7 @@ func (m ModelDaoImpl) Get(id uuid.UUID) (*models.Model, error) {
 
 	result := m.db.First(&obj)
 	if result.Error != nil {
-		m.logger.Log("message", "unable to get", "error", result.Error)
+		m.logger.Log("message", "failed to get", "error", result.Error)
 		return nil, common.SomethingWentWrong
 	}
 
@@ -82,7 +86,7 @@ func (m ModelDaoImpl) Get(id uuid.UUID) (*models.Model, error) {
 func (m ModelDaoImpl) Create(obj *models.Model) (*models.Model, error) {
 	result := m.db.Create(&obj)
 	if result.Error != nil {
-		m.logger.Log("message", "unable to create", "error", result.Error)
+		m.logger.Log("message", "failed to create", "error", result.Error)
 		return nil, common.SomethingWentWrong
 	}
 

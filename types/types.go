@@ -24,6 +24,7 @@ type ListResponse struct {
 }
 
 type UpdateRequest struct {
+	ID uuid.UUID `json:"id" validate:"required"`
 }
 
 type UpdateResponse struct {

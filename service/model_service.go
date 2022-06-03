@@ -43,15 +43,19 @@ func (m ModelServiceImpl) Delete(request *types.DeleteRequest) error {
 		return err
 	}
 
+	m.logger.Log("message", "deleted successfully", "return", request.ID)
+
 	return nil
 }
 
 func (m ModelServiceImpl) Update(request *types.UpdateRequest) (*types.UpdateResponse, error) {
-	_, err := m.modelDao.Update(&models.Model{})
+	updatedModel, err := m.modelDao.Update(&models.Model{})
 	if err != nil {
 		m.logger.Log("error", err)
 		return nil, err
 	}
+
+	m.logger.Log("message", "updated successfully", "return", updatedModel.ID)
 
 	return &types.UpdateResponse{}, nil
 }
@@ -77,11 +81,13 @@ func (m ModelServiceImpl) Get(request *types.GetRequest) (*types.GetResponse, er
 }
 
 func (m ModelServiceImpl) Create(request *types.CreateRequest) (*types.CreateResponse, error) {
-	_, err := m.modelDao.Create(&models.Model{})
+	createdModel, err := m.modelDao.Create(&models.Model{})
 	if err != nil {
 		m.logger.Log("error", err)
 		return nil, err
 	}
+
+	m.logger.Log("message", "created successfully", "return", createdModel.ID)
 
 	return &types.CreateResponse{}, nil
 }
