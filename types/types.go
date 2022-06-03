@@ -21,6 +21,10 @@ type ListRequest struct {
 }
 
 type ListResponse struct {
+	Data []*ListResponseData `json:"data"`
+}
+
+type ListResponseData struct {
 }
 
 type UpdateRequest struct {
