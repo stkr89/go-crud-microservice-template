@@ -28,7 +28,7 @@ func NewHTTPHandler(endpoints endpoints.Endpoints) http.Handler {
 		decodeHTTPCreateRequest,
 		encodeHTTPGenericResponse,
 	)).Methods(http.MethodPost)
-	m.Handle("/api/v1/model/:id", httptransport.NewServer(
+	m.Handle("/api/v1/model/{id}", httptransport.NewServer(
 		endpoint.Chain(
 			middleware.ValidateGetInput(),
 			middleware.ConformGetInput(),
@@ -52,7 +52,7 @@ func NewHTTPHandler(endpoints endpoints.Endpoints) http.Handler {
 		decodeHTTPUpdateRequest,
 		encodeHTTPGenericResponse,
 	)).Methods(http.MethodPut)
-	m.Handle("/api/v1/model/:id", httptransport.NewServer(
+	m.Handle("/api/v1/model/{id}", httptransport.NewServer(
 		endpoint.Chain(
 			middleware.ValidateDeleteInput(),
 			middleware.ConformDeleteInput(),
