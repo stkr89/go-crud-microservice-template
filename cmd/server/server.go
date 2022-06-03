@@ -6,7 +6,7 @@ import (
 	"github.com/stkr89/modelsvc/common"
 	"github.com/stkr89/modelsvc/config"
 	"github.com/stkr89/modelsvc/endpoints"
-	"github.com/stkr89/modelsvc/pb"
+	v1 "github.com/stkr89/modelsvc/pb"
 	"github.com/stkr89/modelsvc/service"
 	transport "github.com/stkr89/modelsvc/transports"
 	"net"
@@ -82,7 +82,7 @@ func startGRPCServer(logger log.Logger, endpoints endpoints.Endpoints) {
 
 	grpcServer := transport.NewGRPCServer(endpoints)
 	baseServer := grpc.NewServer()
-	pb.RegisterMathServiceServer(baseServer, grpcServer)
+	v1.RegisterModelSvcServer(baseServer, grpcServer)
 
 	go func() {
 		level.Info(logger).Log("msg", fmt.Sprintf("Starting gRPC server 🚀 at port %s", grpcPort))
