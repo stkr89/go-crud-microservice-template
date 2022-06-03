@@ -40,7 +40,7 @@ func NewHTTPHandler(endpoints endpoints.Endpoints) http.Handler {
 		endpoint.Chain(
 			middleware.ValidateListInput(),
 			middleware.ConformListInput(),
-		)(endpoints.Update),
+		)(endpoints.List),
 		decodeHTTPListRequest,
 		encodeHTTPGenericResponse,
 	)).Methods(http.MethodGet)
@@ -87,8 +87,13 @@ func encodeHTTPGenericResponse(ctx context.Context, w http.ResponseWriter, respo
 }
 
 func decodeHTTPDeleteRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	returnID := r.URL.Query().Get("id")
-	id, err := uuid.Parse(returnID)
+	vars := mux.Vars(r)
+	idStr, ok := vars["id"]
+	if !ok {
+		return nil, common.InvalidID
+	}
+
+	id, err := uuid.Parse(idStr)
 	if err != nil {
 		return nil, err
 	}
@@ -99,9 +104,8 @@ func decodeHTTPDeleteRequest(_ context.Context, r *http.Request) (interface{}, e
 }
 
 func decodeHTTPListRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	var req types.ListRequest
-	err := json.NewDecoder(r.Body).Decode(&req)
-	return &req, err
+	req := types.ListRequest{}
+	return &req, nil
 }
 
 func decodeHTTPUpdateRequest(_ context.Context, r *http.Request) (interface{}, error) {
@@ -111,8 +115,13 @@ func decodeHTTPUpdateRequest(_ context.Context, r *http.Request) (interface{}, e
 }
 
 func decodeHTTPGetRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	returnID := r.URL.Query().Get("id")
-	id, err := uuid.Parse(returnID)
+	vars := mux.Vars(r)
+	idStr, ok := vars["id"]
+	if !ok {
+		return nil, common.InvalidID
+	}
+
+	id, err := uuid.Parse(idStr)
 	if err != nil {
 		return nil, err
 	}

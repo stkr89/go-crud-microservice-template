@@ -49,6 +49,13 @@ func (m ModelDaoImpl) Delete(id uuid.UUID) error {
 }
 
 func (m ModelDaoImpl) Update(obj *models.Model) (*models.Model, error) {
+	existing, err := m.Get(obj.ID)
+	if err != nil {
+		return nil, err
+	}
+
+	obj.CreatedAt = existing.CreatedAt
+
 	result := m.db.Save(obj)
 	if result.Error != nil {
 		m.logger.Log("message", "failed to update", "error", result.Error)
