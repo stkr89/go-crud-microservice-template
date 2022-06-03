@@ -1,11 +1,23 @@
-# go-microservice-template
+# go-crud-microservice-template
 
 ## Steps
 
-- Rename `pb/math.proto` to `pb/<myservice>svc.proto`
-- Update `pb/<myservice>svc.proto`
-- Update proto file name in `pb/compile.sh`
-- Run `pb/compile.sh` to generate `pb/<my_service>.pb.go`
-- Add new methods to `Service` interface in `service/api.go` and implementations in `service` struct
-- Add new endpoint in `endpoints/endpoints.go`
-- Add new transport handler in `transports/grpc.go`
+- Rename module in `go.mod`
+- Rename model in `models/models.go` and add fields
+- Populate fields for request and response objects in `types/types.go`
+- Populate fields for request and response objects in `pb/model.proto`
+- Generate gRPC client and server code by running the following:
+```shell
+$ cd pb
+$ make generate
+```
+- Add fields to crud methods in `service/model_service.go`
+- Add following environment variables:
+  - `DB_USERNAME`
+  - `DB_PASSWORD`
+  - `DB_HOST`
+  - `DB_PORT`
+  - `DB_NAME`
+  - `DB_CLUSTER`
+  - `GRPC_PORT`
+  - `HTTP_PORT`

@@ -8,29 +8,29 @@ import (
 	sync "sync"
 
 	github_com_google_uuid "github.com/google/uuid"
-	github_com_stkr89_mathsvc_models "github.com/stkr89/modelsvc/models"
+	github_com_stkr89_modelsvc_models "github.com/stkr89/modelsvc/models"
 )
 
 // MockModelDao is a mock of ModelDao interface
 type MockModelDao struct {
 	lockCreate sync.Mutex
-	CreateFunc func(obj *github_com_stkr89_mathsvc_models.Model) (*github_com_stkr89_mathsvc_models.Model, error)
+	CreateFunc func(obj *github_com_stkr89_modelsvc_models.Model) (*github_com_stkr89_modelsvc_models.Model, error)
 
 	lockGet sync.Mutex
-	GetFunc func(id github_com_google_uuid.UUID) (*github_com_stkr89_mathsvc_models.Model, error)
+	GetFunc func(id github_com_google_uuid.UUID) (*github_com_stkr89_modelsvc_models.Model, error)
 
 	lockList sync.Mutex
-	ListFunc func() ([]*github_com_stkr89_mathsvc_models.Model, error)
+	ListFunc func() ([]*github_com_stkr89_modelsvc_models.Model, error)
 
 	lockUpdate sync.Mutex
-	UpdateFunc func(obj *github_com_stkr89_mathsvc_models.Model) (*github_com_stkr89_mathsvc_models.Model, error)
+	UpdateFunc func(obj *github_com_stkr89_modelsvc_models.Model) (*github_com_stkr89_modelsvc_models.Model, error)
 
 	lockDelete sync.Mutex
 	DeleteFunc func(id github_com_google_uuid.UUID) error
 
 	calls struct {
 		Create []struct {
-			Obj *github_com_stkr89_mathsvc_models.Model
+			Obj *github_com_stkr89_modelsvc_models.Model
 		}
 		Get []struct {
 			Id github_com_google_uuid.UUID
@@ -38,7 +38,7 @@ type MockModelDao struct {
 		List []struct {
 		}
 		Update []struct {
-			Obj *github_com_stkr89_mathsvc_models.Model
+			Obj *github_com_stkr89_modelsvc_models.Model
 		}
 		Delete []struct {
 			Id github_com_google_uuid.UUID
@@ -47,7 +47,7 @@ type MockModelDao struct {
 }
 
 // Create mocks base method by wrapping the associated func.
-func (m *MockModelDao) Create(obj *github_com_stkr89_mathsvc_models.Model) (*github_com_stkr89_mathsvc_models.Model, error) {
+func (m *MockModelDao) Create(obj *github_com_stkr89_modelsvc_models.Model) (*github_com_stkr89_modelsvc_models.Model, error) {
 	m.lockCreate.Lock()
 	defer m.lockCreate.Unlock()
 
@@ -56,7 +56,7 @@ func (m *MockModelDao) Create(obj *github_com_stkr89_mathsvc_models.Model) (*git
 	}
 
 	call := struct {
-		Obj *github_com_stkr89_mathsvc_models.Model
+		Obj *github_com_stkr89_modelsvc_models.Model
 	}{
 		Obj: obj,
 	}
@@ -76,7 +76,7 @@ func (m *MockModelDao) CreateCalled() bool {
 
 // CreateCalls returns the calls made to Create.
 func (m *MockModelDao) CreateCalls() []struct {
-	Obj *github_com_stkr89_mathsvc_models.Model
+	Obj *github_com_stkr89_modelsvc_models.Model
 } {
 	m.lockCreate.Lock()
 	defer m.lockCreate.Unlock()
@@ -85,7 +85,7 @@ func (m *MockModelDao) CreateCalls() []struct {
 }
 
 // Get mocks base method by wrapping the associated func.
-func (m *MockModelDao) Get(id github_com_google_uuid.UUID) (*github_com_stkr89_mathsvc_models.Model, error) {
+func (m *MockModelDao) Get(id github_com_google_uuid.UUID) (*github_com_stkr89_modelsvc_models.Model, error) {
 	m.lockGet.Lock()
 	defer m.lockGet.Unlock()
 
@@ -123,7 +123,7 @@ func (m *MockModelDao) GetCalls() []struct {
 }
 
 // List mocks base method by wrapping the associated func.
-func (m *MockModelDao) List() ([]*github_com_stkr89_mathsvc_models.Model, error) {
+func (m *MockModelDao) List() ([]*github_com_stkr89_modelsvc_models.Model, error) {
 	m.lockList.Lock()
 	defer m.lockList.Unlock()
 
@@ -157,7 +157,7 @@ func (m *MockModelDao) ListCalls() []struct {
 }
 
 // Update mocks base method by wrapping the associated func.
-func (m *MockModelDao) Update(obj *github_com_stkr89_mathsvc_models.Model) (*github_com_stkr89_mathsvc_models.Model, error) {
+func (m *MockModelDao) Update(obj *github_com_stkr89_modelsvc_models.Model) (*github_com_stkr89_modelsvc_models.Model, error) {
 	m.lockUpdate.Lock()
 	defer m.lockUpdate.Unlock()
 
@@ -166,7 +166,7 @@ func (m *MockModelDao) Update(obj *github_com_stkr89_mathsvc_models.Model) (*git
 	}
 
 	call := struct {
-		Obj *github_com_stkr89_mathsvc_models.Model
+		Obj *github_com_stkr89_modelsvc_models.Model
 	}{
 		Obj: obj,
 	}
@@ -186,7 +186,7 @@ func (m *MockModelDao) UpdateCalled() bool {
 
 // UpdateCalls returns the calls made to Update.
 func (m *MockModelDao) UpdateCalls() []struct {
-	Obj *github_com_stkr89_mathsvc_models.Model
+	Obj *github_com_stkr89_modelsvc_models.Model
 } {
 	m.lockUpdate.Lock()
 	defer m.lockUpdate.Unlock()

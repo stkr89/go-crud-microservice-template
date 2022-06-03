@@ -30,12 +30,6 @@ func NewModelDaoImpl() *ModelDaoImpl {
 	}
 }
 
-func NewModelDaoImplArgs(db gorm.DB) ModelDaoImpl {
-	return ModelDaoImpl{
-		db: db,
-	}
-}
-
 func (m ModelDaoImpl) Delete(id uuid.UUID) error {
 	result := m.db.Delete(&models.Model{ID: id})
 	if result.Error != nil {

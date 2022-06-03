@@ -29,13 +29,6 @@ func NewModelServiceImpl() *ModelServiceImpl {
 	}
 }
 
-func NewModelServiceImplArgs(logger log.Logger, mathDao dao.ModelDao) ModelService {
-	return &ModelServiceImpl{
-		logger:   logger,
-		modelDao: mathDao,
-	}
-}
-
 func (m ModelServiceImpl) Delete(request *types.DeleteRequest) error {
 	err := m.modelDao.Delete(request.ID)
 	if err != nil {
