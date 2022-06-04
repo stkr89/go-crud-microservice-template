@@ -1,6 +1,6 @@
 # go-crud-microservice-template
 
-A template to get you started quickly with building a pre-implemented CRUD microservice in Go. 
+A minimalist template to get you started quickly with building a pre-implemented CRUD microservice in Go. 
 Just add your model specific fields, and you are all set :rocket:.
 
 ## Overview
