@@ -25,6 +25,7 @@ type ListResponse struct {
 }
 
 type ListResponseData struct {
+	ID uuid.UUID `json:"id"`
 }
 
 type UpdateRequest struct {
@@ -32,6 +33,7 @@ type UpdateRequest struct {
 }
 
 type UpdateResponse struct {
+	ID uuid.UUID `json:"id"`
 }
 
 type DeleteRequest struct {
