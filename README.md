@@ -1,6 +1,14 @@
 # go-crud-microservice-template
 
-## Steps
+## Overview
+
+- Based on [go-kit](https://github.com/go-kit/kit) framework
+- Supports all CRUD operations
+- Provides `http` and `gRPC` server
+- Supports [validate](https://github.com/go-playground/validator) and [conform](https://github.com/leebenson/conform) for user input
+- Uses [gorm](https://github.com/go-gorm/gorm) to interact with DB
+
+## Getting Started
 
 - Rename module in `go.mod`
 - Rename model in `models/models.go` and add fields
