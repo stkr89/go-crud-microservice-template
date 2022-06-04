@@ -10,6 +10,7 @@ Just add your model specific fields, and you are all set :rocket:.
 - Provides `http` and `gRPC` server
 - Supports [validate](https://github.com/go-playground/validator) and [conform](https://github.com/leebenson/conform) for user input
 - Uses [gorm](https://github.com/go-gorm/gorm) to interact with postgres DB
+- Supports Docker
 
 ## Getting Started
 
