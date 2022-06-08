@@ -15,6 +15,7 @@ Just add your model specific fields, and you are all set :rocket:.
 ## Getting Started
 
 - Rename module in `go.mod`
+- Rename Docker tag in `Makefile`
 - Rename model in `models/models.go` and add fields
 - Populate fields for request and response objects in `types/types.go`
 - Populate fields for request and response objects in `pb/model.proto`
