@@ -25,6 +25,7 @@ $ cd pb
 $ make generate
 ```
 - Add fields to crud methods in `service/model_service.go`
+- Update routes in `transports/http.go`
 - Add following environment variables:
   - `DB_USERNAME`
   - `DB_PASSWORD`
