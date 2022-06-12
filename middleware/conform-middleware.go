@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/go-kit/kit/endpoint"
 	"github.com/leebenson/conform"
+	"github.com/stkr89/modelsvc/common"
 	"github.com/stkr89/modelsvc/types"
 )
 
@@ -13,7 +14,7 @@ func ConformListInput() endpoint.Middleware {
 			req := request.(*types.ListRequest)
 			err := conform.Strings(req)
 			if err != nil {
-				return nil, err
+				return nil, common.NewError(common.InvalidRequestBody, err.Error())
 			}
 			return next(ctx, req)
 		}
@@ -26,7 +27,7 @@ func ConformDeleteInput() endpoint.Middleware {
 			req := request.(*types.DeleteRequest)
 			err := conform.Strings(req)
 			if err != nil {
-				return nil, err
+				return nil, common.NewError(common.InvalidRequestBody, err.Error())
 			}
 			return next(ctx, req)
 		}
@@ -39,7 +40,7 @@ func ConformUpdateInput() endpoint.Middleware {
 			req := request.(*types.UpdateRequest)
 			err := conform.Strings(req)
 			if err != nil {
-				return nil, err
+				return nil, common.NewError(common.InvalidRequestBody, err.Error())
 			}
 			return next(ctx, req)
 		}
@@ -52,7 +53,7 @@ func ConformGetInput() endpoint.Middleware {
 			req := request.(*types.GetRequest)
 			err := conform.Strings(req)
 			if err != nil {
-				return nil, err
+				return nil, common.NewError(common.InvalidRequestBody, err.Error())
 			}
 			return next(ctx, req)
 		}
@@ -65,7 +66,7 @@ func ConformCreateInput() endpoint.Middleware {
 			req := request.(*types.CreateRequest)
 			err := conform.Strings(req)
 			if err != nil {
-				return nil, err
+				return nil, common.NewError(common.InvalidRequestBody, err.Error())
 			}
 			return next(ctx, req)
 		}

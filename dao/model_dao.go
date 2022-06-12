@@ -34,7 +34,7 @@ func (m ModelDaoImpl) Delete(id uuid.UUID) error {
 	result := m.db.Delete(&models.Model{ID: id})
 	if result.Error != nil {
 		m.logger.Log("message", "failed to delete", "error", result.Error)
-		return common.SomethingWentWrong
+		return common.NewError(common.SomethingWentWrong, "failed to delete")
 	}
 
 	m.logger.Log("message", "deleted successfully", "return", id)
@@ -53,7 +53,7 @@ func (m ModelDaoImpl) Update(obj *models.Model) (*models.Model, error) {
 	result := m.db.Save(obj)
 	if result.Error != nil {
 		m.logger.Log("message", "failed to update", "error", result.Error)
-		return nil, common.SomethingWentWrong
+		return nil, common.NewError(common.SomethingWentWrong, "failed to update")
 	}
 
 	m.logger.Log("message", "updated successfully", "return", obj.ID)
@@ -66,7 +66,7 @@ func (m ModelDaoImpl) List() ([]*models.Model, error) {
 	result := m.db.Find(&objs)
 	if result.Error != nil {
 		m.logger.Log("message", "failed to list", "error", result.Error)
-		return nil, common.SomethingWentWrong
+		return nil, common.NewError(common.SomethingWentWrong, "failed to list")
 	}
 
 	return objs, nil
@@ -78,7 +78,7 @@ func (m ModelDaoImpl) Get(id uuid.UUID) (*models.Model, error) {
 	result := m.db.First(&obj)
 	if result.Error != nil {
 		m.logger.Log("message", "failed to get", "error", result.Error)
-		return nil, common.SomethingWentWrong
+		return nil, common.NewError(common.SomethingWentWrong, "failed to get")
 	}
 
 	return &obj, nil
@@ -88,7 +88,7 @@ func (m ModelDaoImpl) Create(obj *models.Model) (*models.Model, error) {
 	result := m.db.Create(&obj)
 	if result.Error != nil {
 		m.logger.Log("message", "failed to create", "error", result.Error)
-		return nil, common.SomethingWentWrong
+		return nil, common.NewError(common.SomethingWentWrong, "failed to create")
 	}
 
 	m.logger.Log("message", "created successfully", "return", obj.ID)

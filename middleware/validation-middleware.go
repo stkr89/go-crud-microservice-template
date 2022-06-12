@@ -2,9 +2,9 @@ package middleware
 
 import (
 	"context"
-	"errors"
 	"github.com/go-kit/kit/endpoint"
 	"github.com/go-playground/validator/v10"
+	"github.com/stkr89/modelsvc/common"
 	"github.com/stkr89/modelsvc/types"
 	"strings"
 )
@@ -96,7 +96,7 @@ func validateUtil(err error) error {
 			allErrs = append(allErrs, e.Error())
 		}
 
-		return errors.New(strings.Join(allErrs, ",\n"))
+		return common.NewError(common.InvalidRequestBody, strings.Join(allErrs, ",\n"))
 	}
 
 	return nil

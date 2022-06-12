@@ -32,7 +32,6 @@ func NewModelServiceImpl() *ModelServiceImpl {
 func (m ModelServiceImpl) Delete(request *types.DeleteRequest) error {
 	err := m.modelDao.Delete(request.ID)
 	if err != nil {
-		m.logger.Log("error", err)
 		return err
 	}
 
@@ -44,7 +43,6 @@ func (m ModelServiceImpl) Delete(request *types.DeleteRequest) error {
 func (m ModelServiceImpl) Update(request *types.UpdateRequest) (*types.UpdateResponse, error) {
 	updatedModel, err := m.modelDao.Update(&models.Model{})
 	if err != nil {
-		m.logger.Log("error", err)
 		return nil, err
 	}
 
@@ -56,7 +54,6 @@ func (m ModelServiceImpl) Update(request *types.UpdateRequest) (*types.UpdateRes
 func (m ModelServiceImpl) List(request *types.ListRequest) (*types.ListResponse, error) {
 	_, err := m.modelDao.List()
 	if err != nil {
-		m.logger.Log("error", err)
 		return nil, err
 	}
 
@@ -66,7 +63,6 @@ func (m ModelServiceImpl) List(request *types.ListRequest) (*types.ListResponse,
 func (m ModelServiceImpl) Get(request *types.GetRequest) (*types.GetResponse, error) {
 	_, err := m.modelDao.Get(request.ID)
 	if err != nil {
-		m.logger.Log("error", err)
 		return nil, err
 	}
 
@@ -76,7 +72,6 @@ func (m ModelServiceImpl) Get(request *types.GetRequest) (*types.GetResponse, er
 func (m ModelServiceImpl) Create(request *types.CreateRequest) (*types.CreateResponse, error) {
 	createdModel, err := m.modelDao.Create(&models.Model{})
 	if err != nil {
-		m.logger.Log("error", err)
 		return nil, err
 	}
 
